@@ -1,7 +1,7 @@
 from fastapi import APIRouter
 
 from src.database import db
-from src.secrets.schemas import (SecretAdd, SecretCreated, SecretFull,
+from src.secrets.schemas import (SecretAdd, SecretCreated, SecretViewFull,
                                  SecretView)
 from src.secrets.services import SecretsCRUD
 
@@ -10,7 +10,7 @@ secrets_crud = SecretsCRUD(db=db)
 is_init = secrets_crud.init_indexes()
 
 
-@router.get('/secrets', response_model=list[SecretFull])
+@router.get('/secrets', response_model=list[SecretViewFull])
 async def get_all():
     result = await secrets_crud.get_all()
     return result

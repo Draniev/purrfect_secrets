@@ -13,12 +13,6 @@ app = FastAPI(
 app.include_router(secrets_router)
 
 
-# @app.on_event('startup')
-# async def startup_event():
-#     secrets_collection = db['secrets_collection']
-#     await secrets_collection.create_index('expire_at', expireAfterSeconds=0)
-
-
 @app.get('/', tags=['is_ok'])
 def hello():
     return {'status': 'i am OK'}

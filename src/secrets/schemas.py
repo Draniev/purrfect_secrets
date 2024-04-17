@@ -7,9 +7,9 @@ from pydantic.types import PositiveInt
 PyObjectId = Annotated[str, BeforeValidator(str)]
 
 
-class SecretFull(BaseModel):
+class SecretViewFull(BaseModel):
     id: Optional[PyObjectId] = Field(alias="_id", default=None)
-    secret_body: str = Field(max_length=65535)
+    secret_body: str
     secret_pass: Optional[str] = None
     expire_at: datetime | None = None
 

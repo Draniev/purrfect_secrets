@@ -18,6 +18,9 @@ class AppSettings(BaseSettings):
     MO_HOST: str = '127.0.0.1'
     MO_PORT: str = '27017'
 
+    KEY: str
+    SALT: str
+
     # SMTP_TLS: bool = True
     # SMTP_SSL: bool = False
     # SMTP_PORT: int = 587
