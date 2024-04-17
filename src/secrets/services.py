@@ -3,7 +3,7 @@ from fastapi import HTTPException, status
 from motor.motor_asyncio import AsyncIOMotorDatabase
 
 from src.secrets.schemas import (SecretAdd, SecretCreated, SecretFull,
-                                 SecretsCollection, SecretView)
+                                 SecretView)
 
 
 class SecretsCRUD:
@@ -64,11 +64,12 @@ class SecretsCRUD:
                                 detail="Secret not found!")
         return SecretView(**result)
 
-    async def get_all(self) -> SecretsCollection:
+    async def get_all(self) -> list[SecretFull]:
         """
         Performs a decorative function.
         For debugging purposes only: displays the state
         of the database as it is.
         """
         secrets = await self.collection.find().to_list(1000)
-        return SecretsCollection(secrets=secrets)
+        # return SecretsCollection(secrets=secrets)
+        return secrets

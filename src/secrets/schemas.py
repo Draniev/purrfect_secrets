@@ -39,7 +39,3 @@ class SecretCreated(BaseModel):
 
 class SecretView(BaseModel):
     secret_body: str
-
-
-class SecretsCollection(BaseModel):
-    secrets: list[SecretFull]
