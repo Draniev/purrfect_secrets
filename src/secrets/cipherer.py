@@ -71,5 +71,5 @@ class Cipherer:
                 base64.urlsafe_b64decode(data)  # .encode('utf-8')
             )
             return decrypted.decode('utf-8'), True
-        except InvalidToken:
+        except (InvalidToken, base64.binascii.Error):
             return "", False
