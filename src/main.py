@@ -1,6 +1,5 @@
-from fastapi import FastAPI, HTTPException, status
+from fastapi import FastAPI
 
-from src.database import db
 from src.secrets.router import router as secrets_router
 
 app = FastAPI(
