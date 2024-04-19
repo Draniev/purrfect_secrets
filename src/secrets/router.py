@@ -1,14 +1,11 @@
-from fastapi import APIRouter, Depends
-from motor.motor_asyncio import AsyncIOMotorClient
+from fastapi import APIRouter, Depends, status
 
-from src.database import get_db
 from src.secrets.dependencies import secrets_crud
 from src.secrets.schemas import (SecretAdd, SecretCreated, SecretView,
                                  SecretViewFull)
 from src.secrets.services import SecretsCRUD
 
 router = APIRouter(tags=["Secrets"])
-# secrets_crud = SecretsCRUD(db=db)
 
 
 @router.get(
@@ -32,8 +29,8 @@ async def get_all(
     "/secrets/{secret_key}",
     response_description="Shows a stored secret. After displaying the \
                           secret, it is immediately deleted.",
-    summary="Shows a stored secret and then delet it.",
-    response_model=SecretView
+    summary="Shows a stored secret and then delete it.",
+    response_model=SecretView,
 )
 async def get_secret(
         secret_key: str,
@@ -51,7 +48,9 @@ async def get_secret(
                           still be encrypted in the database. But the key \
                           will be sufficient for displaying.",
     summary="Stores the new secret in the database.",
-    response_model=SecretCreated)
+    status_code=status.HTTP_201_CREATED,
+    response_model=SecretCreated,
+)
 async def add_secret(
         secret: SecretAdd,
         crud: SecretsCRUD = Depends(secrets_crud),
