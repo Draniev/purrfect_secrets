@@ -92,7 +92,7 @@ async def test_secret_expiration(client):
     secret_key = response.json()["secret_key"]
     secret_pass = "example"
     # Wait 90 seconds to ensure the secret has expired
-    await asyncio.sleep(90)
+    await asyncio.sleep(70)
     response = await client.get(
         f"/secrets/{secret_key}", params={"secret_pass": secret_pass}
     )
