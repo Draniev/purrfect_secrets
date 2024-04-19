@@ -11,9 +11,12 @@ class AppSettings(BaseSettings):
     MO_PASS: str = 'example'
     MO_HOST: str = '127.0.0.1'
     MO_PORT: str = '27017'
+    MO_DBNAME: str = 'secrets_db'
 
     KEY: str
     SALT: str
+
+    secrets_collection: str = 'secrets_collection'
 
 
 settings = AppSettings()

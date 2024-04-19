@@ -1,13 +1,14 @@
-from fastapi import APIRouter
+from fastapi import APIRouter, Depends
+from motor.motor_asyncio import AsyncIOMotorClient
 
-from src.database import db
+from src.database import get_db
+from src.secrets.dependencies import secrets_crud
 from src.secrets.schemas import (SecretAdd, SecretCreated, SecretView,
                                  SecretViewFull)
 from src.secrets.services import SecretsCRUD
 
 router = APIRouter(tags=["Secrets"])
-secrets_crud = SecretsCRUD(db=db)
-is_init = secrets_crud.init_indexes()
+# secrets_crud = SecretsCRUD(db=db)
 
 
 @router.get(
@@ -20,8 +21,10 @@ is_init = secrets_crud.init_indexes()
     response_model_exclude_unset=True,
     response_model=list[SecretViewFull],
 )
-async def get_all():
-    result = await secrets_crud.get_all()
+async def get_all(
+        crud: SecretsCRUD = Depends(secrets_crud),
+        ):
+    result = await crud.get_all()
     return result
 
 
@@ -32,8 +35,12 @@ async def get_all():
     summary="Shows a stored secret and then delet it.",
     response_model=SecretView
 )
-async def get_secret(secret_key: str, secret_pass: str | None = None):
-    result = await secrets_crud.get_secret(secret_key, secret_pass)
+async def get_secret(
+        secret_key: str,
+        secret_pass: str | None = None,
+        crud: SecretsCRUD = Depends(secrets_crud),
+        ):
+    result = await crud.get_secret(secret_key, secret_pass)
     return result
 
 
@@ -45,6 +52,9 @@ async def get_secret(secret_key: str, secret_pass: str | None = None):
                           will be sufficient for displaying.",
     summary="Stores the new secret in the database.",
     response_model=SecretCreated)
-async def add_secret(secret: SecretAdd):
-    result = await secrets_crud.add_secret(secret)
+async def add_secret(
+        secret: SecretAdd,
+        crud: SecretsCRUD = Depends(secrets_crud),
+        ):
+    result = await crud.add_secret(secret)
     return result
