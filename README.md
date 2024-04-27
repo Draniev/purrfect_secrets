@@ -1,3 +1,7 @@
+![GitHub top language](https://img.shields.io/github/languages/top/Draniev/purrfect_secrets?style=flat&logo=python&logoColor=FFFFFF&labelColor=%233776AB)
+![Static Badge](https://img.shields.io/badge/FastAPI-%23009688?style=flat&logo=fastapi&logoColor=%23FFFFFF)
+![Static Badge](https://img.shields.io/badge/MongoDB-%23DDE072?style=flat&logo=mongodb&logoColor=%2347A248)
+![Static Badge](https://img.shields.io/badge/Docker-%232496ED?style=flat&logo=docker&logoColor=%23FFFFFF)
 # Purrfect Secrets API
 
 ## Описание проекта
